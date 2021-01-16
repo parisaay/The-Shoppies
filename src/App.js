@@ -32,7 +32,7 @@ const handleNominate=movie=>{
   else{
     const newNominates=[...nominates,movie]
     if(newNominates.length===5){
-      toast.info("You have already chosen your five nominees! ")
+      toast.info("You have chosen all your five nominees! ")
     
     }
   
@@ -85,6 +85,7 @@ const renderTable=()=>{
               <td>{movie.Year}</td>
               <td>
                 <button
+                  disabled= {validate(movie)}
                   className="btn btn-info btn-sm"
                   onClick={() => handleNominate(movie)}
                 >
@@ -109,16 +110,16 @@ const handleSearch=async e=>{
      const searchedTitle=e.currentTarget.value
      setSearchedMovie(searchedTitle)
      const basicUrl=`http://www.omdbapi.com/?apikey=bb1928f5&s=${searchedTitle}&type=movie`
-     console.log(basicUrl)
+     
      try{
       const {data:foundmovies}= await axios.get(basicUrl)
       if(foundmovies.Response === "True")
-      {console.log('if',movies)
+      {
       setMovies(foundmovies.Search)
     }
     else
     {
-      console.log('else',movies) 
+      
       setMovies([])
 
     }
@@ -133,6 +134,14 @@ const handleSearch=async e=>{
 
      
   }
+
+const validate=movie=>{
+  const nominated=nominates.filter(m=>m.imdbID===movie.imdbID)
+  
+  if (nominated.length!==0)
+   return true;
+  return false;
+}
 
 
   return (
