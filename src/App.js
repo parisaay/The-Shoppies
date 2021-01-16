@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
 import SearchBox from './searchForm';
 import {ToastContainer,toast} from 'react-toastify'
-
+import Pagination from './pagination';
 import axios from "axios";
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css'
+import {paginate} from './paginate'
 
 
 
 
 function App(props){
 
-  const [movies,setMovies]=useState([]);
-  const [nominates,setNomminates]=useState([]);
-  const [searchedMovie,setSearchedMovie]=useState("");
+const [movies,setMovies]=useState([]);
+const [nominates,setNomminates]=useState([]);
+const [searchedMovie,setSearchedMovie]=useState("");
+const [pageSize]=useState(4)
+const [currentPage,setCurrentPage]=useState(1)
+
+const count=movies.length
+const paginatedmovies=paginate(pageSize,movies,currentPage)
 
 const handleRemove=nominate=>{
   
-   const filterednominates=nominates.filter(p=>p.imdbID!==nominate.imdbID);
+  const filterednominates=nominates.filter(p=>p.imdbID!==nominate.imdbID);
   
   setNomminates(filterednominates)
 };
@@ -61,10 +67,10 @@ const renderNominate=()=>{
 }
 
 const renderTable=()=>{
-  if (movies.length===0)
+  if (count===0)
   return;
   return <div>
-  <p>Result for {searchedMovie}: Found { movies.length} movies</p>
+  <p>Result for {searchedMovie}: Found {count} movies</p>
  
   
   <table className="table">
@@ -79,7 +85,7 @@ const renderTable=()=>{
     
     <tbody>
           
-          {movies.map((movie) => (
+          {paginatedmovies.map((movie) => (
             <tr key={movie.imdbID}>
               <td>{movie.Title}</td>
               <td>{movie.Year}</td>
@@ -87,7 +93,7 @@ const renderTable=()=>{
                 <button
                   disabled= {validate(movie)}
                   className="btn btn-info btn-sm"
-                  onClick={() => handleNominate(movie)}
+                  onClick={()=>handleNominate(movie)}
                 >
                   Nominate
                 </button>
@@ -143,6 +149,12 @@ const validate=movie=>{
   return false;
 }
 
+const handlePageChange=page=>{
+  
+  setCurrentPage(page)
+  
+}
+ 
 
   return (
     <div>
@@ -151,6 +163,9 @@ const validate=movie=>{
     <div className="row">
     <div className="col-5">
     {renderTable()}
+    <div>{count>0 ? (<Pagination   pageSize={pageSize} moviesCount={count}  currentPage={currentPage} onPageChange={handlePageChange}  />) : null } </div>
+    
+     
     </div>
     
     <div className="col+6">
