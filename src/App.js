@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import Search from './searchForm';
+import SearchBox from './searchForm';
+import {ToastContainer,toast} from 'react-toastify'
+
 import axios from "axios";
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css'
 
 
 
@@ -11,34 +14,35 @@ function App(props){
   const [movies,setMovies]=useState([]);
   const [nominates,setNomminates]=useState([]);
   const [searchedMovie,setSearchedMovie]=useState("");
-// state={
-//   movies:[],
-//   nominates:[],
-//   searchedMovie:""
-// };
-
-
 
 const handleRemove=nominate=>{
-  console.log(nominates)
+  
    const filterednominates=nominates.filter(p=>p.imdbID!==nominate.imdbID);
-  // this.setState({nominates})
+  
   setNomminates(filterednominates)
 };
 
 const handleNominate=movie=>{
+
+  if( nominates.length>=5){
+    
+    toast.error("All nominees have been chosen! ")
+  }
   
-  const newNominates=[...nominates,movie]
-
-
-  //this.setState({nominates})
-  console.log(movie)
+  else{
+    const newNominates=[...nominates,movie]
+    if(newNominates.length===5){
+      toast.info("You have already chosen your five nominees! ")
+    
+    }
+  
+  
   setNomminates(newNominates)
   
-  
-};
-
+  };
+}
 const renderNominate=()=>{
+
   if (nominates.length===0)
   return <p>"Nothing selected!"</p>
   
@@ -57,13 +61,11 @@ const renderNominate=()=>{
 }
 
 const renderTable=()=>{
-  if (movies.length==0)
+  if (movies.length===0)
   return;
-  return <div className="row">
-  <div className="col-5">
-   <div>
-    Found { movies.length} movies 
- </div> 
+  return <div>
+  <p>Result for {searchedMovie}: Found { movies.length} movies</p>
+ 
   
   <table className="table">
     <thead>
@@ -93,13 +95,9 @@ const renderTable=()=>{
           ))}
         </tbody>
   </table>
-  </div>
-  <div className="col+6"></div>
-  <div>
-    <p>Result for ram</p>
-    
-    {renderNominate()}
-  </div>
+  
+  
+  
 
   </div>
  
@@ -131,74 +129,27 @@ const handleSearch=async e=>{
      {
       setMovies(originalMovies)
      }
-//console.log('foundmovies',foundmovies.Search)
+
 
      
   }
 
-//  const handleApiCall= async()=>{
-// const basicUrl=`http://www.omdbapi.com/?apikey=bb1928f5&s=${searchedMovie}&type=movie`
-//  const {data:movies}= await axios.get(basicUrl)
-// console.log(searchedMovie)
-// setMovies(movies.Search)
-//  }
 
-
- 
   return (
     <div>
-       
-    <Search value={searchedMovie}  onChange={handleSearch} />
-    
-    {renderTable()}
-    
-  {/* <div className="row">
+    <ToastContainer/>  
+    <SearchBox value={searchedMovie}  onChange={handleSearch} />
+    <div className="row">
     <div className="col-5">
-     <div>
-      Found {count} movies 
-   </div> 
+    {renderTable()}
+    </div>
     
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Year</th>
-          <th>Nominate</th>
-        </tr>
-      </thead>
-      
-      
-      <tbody>
-            
-            {movies.map((movie) => (
-              <tr key={movie.imdbID}>
-                <td>{movie.Title}</td>
-                <td>{movie.Year}</td>
-                <td>
-                  <button
-                    className="btn btn-info btn-sm"
-                    onClick={() => handleNominate(movie)}
-                  >
-                    Nominate
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-    </table>
+    <div className="col+6">
+      <p>Nominations</p>
+    {renderNominate()}
     </div>
-    <div className="col+6"></div>
-    <div>
-      <p>Result for ram</p>
-      
-      {renderNominate()}
     </div>
-
-    </div>
-   
-     */}
-    
-  </div>)
+     </div>)
 }
 
 export default App;
