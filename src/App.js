@@ -136,6 +136,7 @@ const handleSearch=async e=>{
     {
       
       setMovies([])
+      setCurrentPage(1)
 
     }
 

@@ -6,8 +6,8 @@ const SearchBox =({value,onChange}) =>
      { 
         return ( 
         
-        <form >
-        <div className="form-group col-2">
+          <form id="dashboard-form" onSubmit={(e)=> e.preventDefault()}>
+         <div className="form-group col-2">
         <label htmlFor="search" className="form-label">Movie Title</label>
          <input 
          className="form-control "
