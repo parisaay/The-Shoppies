@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/parisaay/The-Shoppies/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/parisaay/The-Shoppies/static/js/main.8a1f8c74.chunk.js",
+    "main.js.map": "/parisaay/The-Shoppies/static/js/main.8a1f8c74.chunk.js.map",
+    "runtime-main.js": "/parisaay/The-Shoppies/static/js/runtime-main.a683d19c.js",
+    "runtime-main.js.map": "/parisaay/The-Shoppies/static/js/runtime-main.a683d19c.js.map",
+    "static/css/2.c4be8efe.chunk.css": "/parisaay/The-Shoppies/static/css/2.c4be8efe.chunk.css",
+    "static/js/2.0e38d903.chunk.js": "/parisaay/The-Shoppies/static/js/2.0e38d903.chunk.js",
+    "static/js/2.0e38d903.chunk.js.map": "/parisaay/The-Shoppies/static/js/2.0e38d903.chunk.js.map",
+    "static/js/3.ae5f2f86.chunk.js": "/parisaay/The-Shoppies/static/js/3.ae5f2f86.chunk.js",
+    "static/js/3.ae5f2f86.chunk.js.map": "/parisaay/The-Shoppies/static/js/3.ae5f2f86.chunk.js.map",
+    "index.html": "/parisaay/The-Shoppies/index.html",
+    "static/css/2.c4be8efe.chunk.css.map": "/parisaay/The-Shoppies/static/css/2.c4be8efe.chunk.css.map",
+    "static/css/main.8c8b27cf.chunk.css.map": "/parisaay/The-Shoppies/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.0e38d903.chunk.js.LICENSE.txt": "/parisaay/The-Shoppies/static/js/2.0e38d903.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a683d19c.js",
+    "static/css/2.c4be8efe.chunk.css",
+    "static/js/2.0e38d903.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.8a1f8c74.chunk.js"
+  ]
+}
