@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import SearchBox from './searchForm';
 import {ToastContainer,toast} from 'react-toastify'
 import Pagination from './pagination';
@@ -26,6 +26,7 @@ const handleRemove=nominate=>{
   const filterednominates=nominates.filter(p=>p.imdbID!==nominate.imdbID);
   
   setNomminates(filterednominates)
+  localStorage.removeItem(nominate.imdbID)
 };
 
 const handleNominate=movie=>{
@@ -37,6 +38,8 @@ const handleNominate=movie=>{
   
   else{
     const newNominates=[...nominates,movie]
+    
+    
     if(newNominates.length===5){
       toast.info("You have chosen all your five nominees! ")
     
@@ -44,6 +47,12 @@ const handleNominate=movie=>{
   
   
   setNomminates(newNominates)
+  console.log(newNominates)
+  for (let i=0;i<newNominates.length;i++){
+    localStorage.setItem(newNominates[i].imdbID,`${newNominates[i].Year}-${newNominates[i].Title}`)
+    
+    
+    };
   
   };
 }
@@ -155,6 +164,20 @@ const handlePageChange=page=>{
   
 }
  
+useEffect(()=>{
+let  values = [],
+        keys = Object.keys(localStorage),
+        keyLength = keys.length;
+    for(let i=0;i<keyLength;i++){
+      let currentValue = localStorage.getItem(keys[i])
+      let nominee = {"imdbID": keys[i], "Title": currentValue.split('-')[1], "Year"  :currentValue.split('-')[0]} 
+        values.push(nominee);
+    }
+    console.log(values)
+    setNomminates(values)
+
+},[])
+
 
   return (
     <div>
