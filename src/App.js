@@ -124,7 +124,7 @@ const handleSearch=async e=>{
   const originalMovies=movies
      const searchedTitle=e.currentTarget.value
      setSearchedMovie(searchedTitle)
-     const basicUrl=`http://www.omdbapi.com/?apikey=bb1928f5&s=${searchedTitle}*&type=movie`
+     const basicUrl=`https://www.omdbapi.com/?apikey=bb1928f5&s=${searchedTitle}*&type=movie`
      
      try{
       const {data:foundmovies}= await axios.get(basicUrl)
