@@ -59,13 +59,13 @@ const handleNominate=movie=>{
 const renderNominate=()=>{
 
   if (nominates.length===0)
-  return <p>"Nothing selected!"</p>
+  return <p style={{fontSize: "17px",fontWeight:"lighter",color:"darkblue"}}>Nothing selected!</p>
   
- return <ul>{nominates.map(nominate=>
- <li key={nominate.imdbID}>
+ return <ul className="list-group">{nominates.map(nominate=>
+ <li key={nominate.imdbID} className="list-group-item d-flex justify-content-between align-items-center">
    {nominate.Title} {nominate.Year}
    <button
-  className="btn btn-info btn-sm"
+  className="btn btn-sm badge badge-danger badge-pill"
   onClick={() => handleRemove(nominate)}
  >
   Remove
@@ -79,7 +79,7 @@ const renderTable=()=>{
   if (count===0)
   return;
   return <div>
-  <p>Result for {searchedMovie}: Found {count} movies</p>
+  <p style={{fontWeight:"bold"}}>Result for {searchedMovie}: Found {count} movies</p>
  
   
   <table className="table">
@@ -180,24 +180,32 @@ let  values = [],
 },[])
 
 
-  return (
-    <div>
-    <ToastContainer/>  
-    <SearchBox value={searchedMovie}  onChange={handleSearch} />
-    <div className="row">
-    <div className="col-5">
-    {renderTable()}
-    <div>{count>0 ? (<Pagination   pageSize={pageSize} moviesCount={count}  currentPage={currentPage} onPageChange={handlePageChange}  />) : null } </div>
-    
-     
+return (
+  <div className="main-container">
+    <ToastContainer />
+    <SearchBox value={searchedMovie} onChange={handleSearch} />
+    <div className="result-container">
+      <div className="search-result">
+        {renderTable()}
+        <div>
+          {count > 0 ? (
+            <Pagination
+              pageSize={pageSize}
+              moviesCount={count}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          ) : null}
+        </div>
+      </div>
+
+      <div className="nomination-list">
+        <p style={{fontSize:"20px",fontWeight:'bold',color:"s"}}>Nomination List</p>
+        {renderNominate()}
+      </div>
     </div>
-    
-    <div className="col+6">
-      <p>Nominations</p>
-    {renderNominate()}
-    </div>
-    </div>
-     </div>)
+  </div>
+);
 }
 
 export default App;
